@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Uni Studio" id="com.jiuqi.rpa.app.product" application="com.jiuqi.rpa.app.application" version="2.6.0" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="/com.jiuqi.rpa.product.x86/about.gif"/>
+      <text>
+         %aboutText
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgsWin>-data @noDefault
+      </programArgsWin>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+      <vmArgsWin>-Xms128m
+		-Xmx1024m
+		-Duser.language=zh
+		-Dosgi.instance.area.default=@user.home/ETL-workspace
+      </vmArgsWin>
+   </launcherArgs>
+
+   <windowImages i16="/com.jiuqi.rpa.product.x86/16.png" i32="/com.jiuqi.rpa.product.x86/32.png" i48="/com.jiuqi.rpa.product.x86/48.png" i64="/com.jiuqi.rpa.product.x86/64.png" i128="/com.jiuqi.rpa.product.x86/128.png"/>
+
+   <launcher name="Uni Studio">
+      <win useIco="true">
+         <ico path="/com.jiuqi.rpa.product.x86/ELT-icon48.ico"/>
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5</windows>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.rcp" version="3.5.1.R35x_v20090811-9SA0FxVFqE70OL1ARMrfcO6e7BA6"/>
+      <feature id="org.eclipse.draw2d" version="3.5.1.v20090724-1146-4407w311A192402452"/>
+      <feature id="org.eclipse.gef" version="3.5.1.v20090724-1146-777908193B6696L3DA843563"/>
+      <feature id="org.eclipse.help" version="1.1.1.R35x_v20090811-7e7eFAnFEx2XZoYz0uPgIfwD"/>
+      <feature id="org.eclipse.others" version="1.0.0"/>
+      <feature id="org.eclipse.nl_zh" version="1.0.0"/>
+      <feature id="com.jiuqi.3rdParty" version="1.0.0"/>
+      <feature id="com.jiuqi.common" version="1.0.0"/>
+      <feature id="com.jiuqi.rpa" version="1.0.0"/>
+   </features>
+
+
+</product>
