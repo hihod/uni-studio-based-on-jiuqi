@@ -1,5 +1,8 @@
 package com.jiuqi.rpa.lib.find;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +43,9 @@ public class UIAElement implements IUIElement {
 		}
 	}
 	
+	/**
+	 * lpy
+	 */
 	public UIARect getRect() throws LibraryException {
 		try {
 			UIARect rect = new UIARect();
@@ -49,7 +55,17 @@ public class UIAElement implements IUIElement {
 			throw new LibraryException(e);
 		}
 	}
+
+	/**
+	 * lpy
+	 */
+	public UIARect getRect(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException {
+		throw new LibraryException("客户端 UIAElement 对象，请调用不带参 getRect 方法");
+	}
 	
+	/**
+	 * @author lpy
+	 */
 	public Path getPath() throws LibraryException {
 		try {
 			String pathJsonStr = JQUIA.find_getPath(id);
@@ -63,6 +79,13 @@ public class UIAElement implements IUIElement {
 		} catch (JSONException e) {
 			throw new LibraryException("路径转json失败", e);
 		}
+	}
+	
+	/**
+	 * @author lpy
+	 */
+	public Path getPath(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException {
+		throw new LibraryException("客户端 UIAElement 对象，请调用不带参 getPath 方法");
 	}
 	
 	public void scrollIntoView() throws LibraryException {

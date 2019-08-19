@@ -1,5 +1,8 @@
 package com.jiuqi.rpa.lib.find;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,9 +11,9 @@ import com.jiuqi.bi.util.StringUtils;
 import com.jiuqi.rpa.lib.Context;
 import com.jiuqi.rpa.lib.LibraryException;
 import com.jiuqi.rpa.lib.Rect;
+import com.jiuqi.rpa.lib.browser.BrowserExtensionsUtil;
 import com.jiuqi.rpa.lib.browser.UIBrowser;
 import com.jiuqi.rpa.lib.browser.WebBrowserManager;
-import com.jiuqi.rpa.lib.browser.WebBrowserType;
 import com.jiuqi.rpa.lib.mouse.MouseClickType;
 
 /**
@@ -50,12 +53,25 @@ public class WEBElement implements IUIElement {
 		return;
 	}
 
+	/**
+	 * @author lpy
+	 */
 	public Rect getRect() throws LibraryException {
+		throw new LibraryException("Web端 WEBElement 对象，请调用带参 getPath 方法");
+	}
+
+	/**
+	 * @author lpy
+	 */
+	public Rect getRect(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException {
 		try {
-			UIBrowser browser = getBrowser();
-			System.out.println("getRect("+elementId+")");
-			String rectStr = (String) browser.executeScript("return JQWEB.getRect(arguments[0])", elementId);
-		
+//			UIBrowser browser = getBrowser();
+//			System.out.println("getRect(" + elementId + ")");
+//			String rectStr = (String) browser.executeScript("return JQWEB.getRect(arguments[0])", elementId);
+			// 向浏览器发送请求
+			String rectStr = BrowserExtensionsUtil.request("JQWEB.getRect", Long.toString(elementId), inputStream,
+					outputStream);
+
 			Rect rect = new Rect();
 			JSONObject rectjo = new JSONObject(rectStr);
 			rect.x = rectjo.getInt("left");
@@ -65,17 +81,29 @@ public class WEBElement implements IUIElement {
 			return rect;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new LibraryException(
-					"执行browser[" + browserId + "]下的ele[" + elementId + "] getRect失败！" + e.getMessage(), e);
+			throw new LibraryException("执行 ele[" + elementId + "] getRect失败，在 JQWEB.getRect 函数" + e.getMessage(), e);
 		}
 	}
 
+	/**
+	 * @author lpy
+	 */
 	public Path getPath() throws LibraryException {
+		throw new LibraryException("Web端 WEBElement 对象，请调用带参 getPath 方法");
+	}
+
+	/**
+	 * @author lpy
+	 */
+	public Path getPath(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException {
 		Path path = new Path();
 		try {
-			UIBrowser browser = getBrowser();
+//			UIBrowser browser = getBrowser();
+//			String pathStr = (String) browser.executeScript("return JQWEB.getPath(arguments[0])", elementId);
+			// 向浏览器扩展发送请求
+			String pathStr = BrowserExtensionsUtil.request("JQWEB.getPath", Long.toString(elementId), inputStream,
+					outputStream);
 
-			String pathStr = (String) browser.executeScript("return JQWEB.getPath(arguments[0])", elementId);
 			System.out.println(pathStr);
 			// FIXED:add window node at first
 			JSONArray elements = new JSONArray(pathStr);
@@ -83,7 +111,7 @@ public class WEBElement implements IUIElement {
 			pathobj.put("elements", elements);
 			pathobj.put("isWeb", true);
 			path.fromJson(pathobj);
-			path.getElements().add(0, generWindowNode());
+			path.getElements().add(0, generWindowNode(inputStream, outputStream));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LibraryException(
@@ -92,33 +120,40 @@ public class WEBElement implements IUIElement {
 		return path;
 	}
 
-	private PathElement generWindowNode() throws LibraryException {
+	private PathElement generWindowNode(DataInputStream inputStream, DataOutputStream outputStream)
+			throws LibraryException {
 		try {
+			// 向浏览器扩展发送请求
+			String response = BrowserExtensionsUtil.request("JQWEB.getBrowserInfo", "", inputStream, outputStream);
+
 			PathElement windowNode = new PathElement();
-			UIBrowser browser = getBrowser();
+//			UIBrowser browser = getBrowser();
+			JSONObject browser = new JSONObject(response);
 			PathAttribute application = new PathAttribute();
 			PathAttribute title = new PathAttribute();
 			PathAttribute url = new PathAttribute();
 
 			application.setEnable(true);
 			application.setName("Application");
-			application.setValue(WebBrowserType.parseTypeToProcessName(browser.getType()));
+//			application.setValue(WebBrowserType.parseTypeToProcessName(browser.getType()));
+			application.setValue(browser.getString("application"));
 			windowNode.getAttributes().add(application);
 
 			title.setEnable(true);
 			title.setName("title");
-			title.setValue(browser.getPageTitle());
+//			title.setValue(browser.getPageTitle());
+			title.setValue(browser.getString("title"));
 			windowNode.getAttributes().add(title);
 
 			url.setEnable(true);
 			url.setName("url");
-			url.setValue(browser.getCurrentUrl());
+//			url.setValue(browser.getCurrentUrl());
+			url.setValue(browser.getString("url"));
 			windowNode.getAttributes().add(url);
-			windowNode.setEnable(true);		
-					
-			
+			windowNode.setEnable(true);
+
 			return windowNode;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LibraryException(e.getMessage(), e);
@@ -139,7 +174,7 @@ public class WEBElement implements IUIElement {
 
 	public void setFocus() throws LibraryException {
 		try {
-			UIBrowser uiBrowser =getBrowser();
+			UIBrowser uiBrowser = getBrowser();
 
 			IUIElement window = new FindLibraryManager(new Context()).getWindow(this);
 			if (window != null)
@@ -155,7 +190,7 @@ public class WEBElement implements IUIElement {
 
 	public boolean isChecked() throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 
 			Long result = (Long) browser.executeScript("return JQWEB.isChecked(arguments[0])", elementId);
 			if (result == 1)
@@ -174,17 +209,12 @@ public class WEBElement implements IUIElement {
 
 			browser.executeScript("return JQWEB.setChecked(arguments[0],arguments[1])", elementId,
 					checked ? "true" : "false");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new LibraryException(
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] setChecked 失败！" + e.getMessage(), e);
-	
-			
-			
-			
-			
-		
+
 		}
 	}
 
@@ -216,7 +246,7 @@ public class WEBElement implements IUIElement {
 
 	public void setText(String text) throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 
 			browser.executeScript("return JQWEB.setText(arguments[0],arguments[1])", elementId, text);
 		} catch (Exception e) {
@@ -255,7 +285,7 @@ public class WEBElement implements IUIElement {
 
 	public void selectItems(String[] items) throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 			browser.executeScript("return JQWEB.selectItems(arguments[0],arguments[1])", elementId, items);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,7 +296,7 @@ public class WEBElement implements IUIElement {
 
 	public void clearText() throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 
 			browser.executeScript("return JQWEB.clearText(arguments[0])", elementId);
 		} catch (Exception e) {
@@ -278,8 +308,8 @@ public class WEBElement implements IUIElement {
 
 	public void simulateTypeText(String text) throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
-			
+			UIBrowser browser = getBrowser();
+
 			browser.executeScript("return JQWEB.setText(arguments[0],arguments[1])", elementId, text);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -291,13 +321,13 @@ public class WEBElement implements IUIElement {
 	public void sendHotkey(int hotkey, int[] maskkeys) throws LibraryException {
 		return;
 	}
-	
+
 	/**
 	 * 获取元素属性
 	 */
 	public String getAttributeValue(String attrName) throws LibraryException {
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 
 			String r = (String) browser.executeScript("return JQWEB.getAttributeValue(arguments[0],arguments[1])",
 					elementId, attrName);
@@ -308,7 +338,7 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] getAttributeValue 失败！" + e.getMessage(), e);
 		}
 	}
-	
+
 	public boolean enable() throws LibraryException {
 		try {
 			UIBrowser browser = getBrowser();
@@ -338,9 +368,10 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] visible 失败！" + e.getMessage(), e);
 		}
 	}
-	
+
 	/**
 	 * 判断是否为标准table内元素
+	 * 
 	 * @return
 	 * @throws LibraryException
 	 */
@@ -358,15 +389,19 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] isTable 失败！" + e.getMessage(), e);
 		}
 	}
+
 	/**
 	 * 整表提取数据
+	 * 
 	 * @return
 	 * @throws LibraryException
 	 */
 	public String getPageDataByTable() throws LibraryException {
-		if(!isTable()) {throw new LibraryException("该元素不是table内元素！");}
+		if (!isTable()) {
+			throw new LibraryException("该元素不是table内元素！");
+		}
 		try {
-			UIBrowser browser =getBrowser();
+			UIBrowser browser = getBrowser();
 			String data = (String) browser.executeScript("return JQWEB.getTableData(arguments[0])", elementId);
 			return data;
 		} catch (Exception e) {
@@ -375,13 +410,17 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] getPageDataByTable 失败！" + e.getMessage(), e);
 		}
 	}
+
 	/**
-	 *  只用于获取整表的列信息，用于展示，获取数据请用{@link WEBElement#getPageDataByTable()}
+	 * 只用于获取整表的列信息，用于展示，获取数据请用{@link WEBElement#getPageDataByTable()}
+	 * 
 	 * @return
 	 * @throws LibraryException
 	 */
-	public WebTableColumnsInfo getTableCols()  throws LibraryException {
-		if(!isTable()) {throw new LibraryException("该元素不是table内元素！");}
+	public WebTableColumnsInfo getTableCols() throws LibraryException {
+		if (!isTable()) {
+			throw new LibraryException("该元素不是table内元素！");
+		}
 		try {
 			UIBrowser browser = getBrowser();
 
@@ -395,6 +434,7 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] getTableCols 失败！" + e.getMessage(), e);
 		}
 	}
+
 	/**
 	 * 获取表格数据，<em>注意：当前元素必须为表格的根节点，如table节点</em>
 	 */
@@ -458,7 +498,7 @@ public class WEBElement implements IUIElement {
 					"执行browser[" + browserId + "]下的ele[" + elementId + "] click 失败！" + e.getMessage(), e);
 		}
 	}
-	
+
 	public UIBrowser getOwnerBrowser() {
 		return WebBrowserManager.getInstance().getBrowser(browserId);
 	}

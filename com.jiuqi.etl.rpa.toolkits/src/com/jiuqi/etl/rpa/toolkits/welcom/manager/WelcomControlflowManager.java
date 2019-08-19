@@ -214,7 +214,7 @@ public class WelcomControlflowManager {
 		}
 		segmentList.add(wrapper);
 		
-		serverView.locateToControlFlowEditor(segmentList);
+//		serverView.locateToControlFlowEditor(segmentList);
 		
 	}
 	/**

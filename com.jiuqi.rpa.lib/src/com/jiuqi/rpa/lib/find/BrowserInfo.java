@@ -6,7 +6,7 @@ package com.jiuqi.rpa.lib.find;
  * @author zhouxubo.jiuqi.com.cn
  */
 public class BrowserInfo {
-	public String appication;
+	public String application;
 	public String title;
 	public String url;
 
@@ -19,10 +19,10 @@ public class BrowserInfo {
 		if (getClass() != obj.getClass())
 			return false;
 		BrowserInfo other = (BrowserInfo) obj;
-		if (appication == null) {
-			if (other.appication != null)
+		if (application == null) {
+			if (other.application != null)
 				return false;
-		} else if (!appication.equals(other.appication))
+		} else if (!application.equals(other.application))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -36,9 +36,9 @@ public class BrowserInfo {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "(" + appication + ", " + title + "," + url + ")";
+		return "(" + application + ", " + title + "," + url + ")";
 	}
 }

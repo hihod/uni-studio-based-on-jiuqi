@@ -80,7 +80,7 @@ public class WebBrowserManager {
 	}
 
 	public UIBrowser getBrowserByBrowserInfo(BrowserInfo info) throws LibraryException {
-		WebBrowserType type = WebBrowserType.parseProcessNameToBrowserType(info.appication);
+		WebBrowserType type = WebBrowserType.parseProcessNameToBrowserType(info.application);
 		UIBrowser browser = getBrowserByTitleUrlAndType(info.title, info.url, type);
 		lastActiveBrowser = browser;
 		return browser;

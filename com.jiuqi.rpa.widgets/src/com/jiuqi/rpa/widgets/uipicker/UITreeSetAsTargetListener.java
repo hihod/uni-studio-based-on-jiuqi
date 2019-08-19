@@ -34,7 +34,8 @@ public class UITreeSetAsTargetListener extends SelectionAdapter {
 		try {
 			Path path = uiElement.getPath();
 			if (path != null)
-				pickerShell.loadPath(path);
+				// TODO 与浏览器扩展 Socket 通信的输入输出流 暂时为 NULL
+				pickerShell.loadPath(path, null, null);
 		} catch (LibraryException e) {
 			e.printStackTrace();
 		}

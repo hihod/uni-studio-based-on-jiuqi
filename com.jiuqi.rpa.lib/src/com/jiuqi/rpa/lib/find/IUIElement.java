@@ -1,5 +1,8 @@
 package com.jiuqi.rpa.lib.find;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
 import com.jiuqi.rpa.lib.IUIHandler;
 import com.jiuqi.rpa.lib.LibraryException;
 import com.jiuqi.rpa.lib.Rect;
@@ -18,6 +21,7 @@ public interface IUIElement extends IUIHandler {
 	 * @throws LibraryException
 	 */
 	Rect getRect() throws LibraryException;
+	Rect getRect(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException;
 
 	/**
 	 * 获取元素路径
@@ -26,6 +30,7 @@ public interface IUIElement extends IUIHandler {
 	 * @throws LibraryException
 	 */
 	Path getPath() throws LibraryException;
+	Path getPath(DataInputStream inputStream, DataOutputStream outputStream) throws LibraryException;
 
 	/**
 	 * 滚动到可见
