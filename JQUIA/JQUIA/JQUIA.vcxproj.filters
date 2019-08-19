@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\library">
+      <UniqueIdentifier>{af232795-5073-4bc3-9ab8-e8a686648495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\utils">
+      <UniqueIdentifier>{e7a02c30-92c5-4560-8783-ac49e39ff2fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\library">
+      <UniqueIdentifier>{831cccc4-8d3e-48a7-a4e8-e4980a14444c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{b013c782-49a1-48d5-995b-ab8962770e67}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAFindLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAPickerLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIADrawerLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIATreeWalker.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAObj.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\JNIUitls.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Path.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAMouseLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAKeyboardLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAControlLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAWindowLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIADialogLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAApplicationLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="library\UIAImageLibrary.h">
+      <Filter>头文件\library</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\MouseUtils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\KeyboardUtils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\BrowserUtils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\StringUtils.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Logger.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="com_jiuqi_rpa_uiadll_JQUIA.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\HookUtil.h">
+      <Filter>头文件\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAFindLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAPickerLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIADrawerLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAObj.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIATreeWalker.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\JNIUitls.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Path.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\jsoncpp.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAKeyboardLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAMouseLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAControlLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAWindowLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIADialogLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAApplicationLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="library\UIAImageLibrary.cpp">
+      <Filter>源文件\library</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\MouseUtils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\KeyboardUtils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\BrowserUtils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\StringUtils.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\Logger.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="JQUIA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\HookUtil.cpp">
+      <Filter>源文件\utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
